@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Noël</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Page 1 styles */
+        #page1 {
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #page1 h1, #page1 p {
+            font-size: 3em; /* Augmenter la taille du texte */
+            margin: 10px 0;
+            position: relative;
+        }
+
+        #page1 p {
+            font-size: 1.5em; /* Augmenter la taille du texte des sous-titres */
+        }
+
+        /* Ajout d'une boîte semi-transparente pour améliorer la lisibilité */
+        #page1 .text-box {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .clickable {
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            width: 150px;
+            position: relative;
+            top: 10%; /* Déplacer légèrement le cadeau vers le haut */
+        }
+
+        /* Effet de survol sur le cadeau (agrandissement) */
+        .clickable:hover {
+            transform: scale(1.1); /* Agrandissement au survol */
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8); /* Ombre portée */
+        }
+
+        /* Page 2 styles */
+        #page2 {
+            display: none;
+            background: url('ciel.png') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #elfie {
+            position: absolute;
+            width: 200px; /* Agrandir l'image de l'elfie */
+            top: 50%;
+            left: -150px;
+            transform: translateY(-50%);
+            transition: transform 10s linear; /* Ralentir l'animation */
+        }
+
+        .snow {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
+        /* Effet sur la carte de Noël */
+        #finalImage {
+            display: none;
+            position: absolute;
+            width: 60%; /* Taille de l'image de la carte */
+            z-index: 10;
+            text-align: center;
+            top: 50%; /* Centrer verticalement */
+            left: 50%; /* Centrer horizontalement */
+            transform: translate(-50%, -50%); /* Ajustement précis pour le centre */
+        }
+
+        /* Style pour "Joyeux Noël !" */
+        #finalImage h2 {
+            color: #FF6347; /* Couleur festive (tomato) */
+            font-size: 5em; /* Taille de la police plus grande */
+            font-family: 'Pacifico', cursive; /* Police cursive et festive */
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.6); /* Ombre portée pour un effet lumineux */
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 11;
+        }
+
+        /* Importation de la police Pacifico (Google Fonts) */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        /* Animation autour de la carte */
+        @keyframes haloEffect {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.7);
+            }
+        }
+
+        /* Effet de halo sur la carte */
+        #finalImage img {
+            animation: haloEffect 2s infinite;
+        }
+
+        /* Style pour elfie2.png */
+        #elfie2 {
+            display: none;
+            position: fixed;
+            top: 50%;
+            right: 0; /* Décalage sur le côté droit */
+            transform: translateY(-50%);
+            z-index: 15;
+            width: 80%; /* Taille de l'image elfie2.png */
+            max-width: 900px;
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="page1">
+        <div class="text-box">
+            <h1>🎄 Joyeux Noël Papa ! 🎄</h1>
+            <p>Ton cadeau est coincé quelque part entre la France 🇫🇷 et l'Allemagne 🇩🇪</p>
+            <p>Voici ton cadeau de compensation :</p>
+        </div>
+        <img src="cadeau.png" alt="Cadeau" class="clickable" onclick="showPage2()">
+    </div>
+
+    <div id="page2">
+        <img src="elfie1.png" alt="Elfie" id="elfie">
+        <!-- Carte de Noël -->
+        <div id="finalImage">
+            <img src="carte.png" alt="Carte" id="carte" onclick="showElfie2()" />
+            <h2>Joyeux Noël !</h2>
+        </div>
+    </div>
+
+    <!-- Elfie2 qui apparaît au clic -->
+    <img src="elfie2.png" alt="Elfie2" id="elfie2" />
+
+    <script>
+        // Function to transition to page 2
+        function showPage2() {
+            document.getElementById('page1').style.display = 'none';
+            const page2 = document.getElementById('page2');
+            page2.style.display = 'block';
+
+            // Start snow effect
+            for (let i = 0; i < 100; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snow');
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                page2.appendChild(snowflake);
+            }
+
+            // Animate elfie more slowly
+            const elfie = document.getElementById('elfie');
+            setTimeout(() => {
+                elfie.style.transition = 'transform 10s linear'; // Ralentir l'animation
+                elfie.style.transform = 'translate(120vw, -50%) scale(2)';
+            }, 500);
+
+            // Show the final image (replace with your logic later)
+            setTimeout(() => {
+                document.getElementById('finalImage').style.display = 'block';
+            }, 12000); // L'image apparaîtra après 12 secondes
+        }
+
+        // Function to show elfie2 when the card is clicked
+        function showElfie2() {
+            document.getElementById('finalImage').style.display = 'none'; // Hide the card
+            document.getElementById('elfie2').style.display = 'block'; // Show elfie2
+        }
+    </script>
+</body>
+</html>
